@@ -7,6 +7,10 @@ use Illuminate\Http\Request;
 class DuvidaController extends Controller
 {
 
+    public function __construct()
+    {
+        $this->middleware('auth')->except(['index']);//restringe acesso aos users autenticados exceto a index
+    }
 
     /**
      * Show the application dashboard.
