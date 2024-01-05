@@ -39,13 +39,9 @@
                         @guest
                             @if (Route::has('login'))
                                 <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
-                                </li>
-                            @endif
-
-                            @if (Route::has('register'))
-                                <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
+                                    <a class="nav-link" href="{{ route('login') }}">
+                                        <img src="{{ asset('/build/assets/img/login.png') }}" alt="Logo" width="35" height="35">
+                                    </a>
                                 </li>
                             @endif
                         @else
@@ -67,6 +63,12 @@
                                 </div>
                             </li>
                         @endguest
+                        <li>
+                            <div class="form-check form-switch ">
+                                <input class="form-check-input mt-3" type="checkbox" id="darkModeSwitch">
+                                <img src="{{ asset('/build/assets/img/modoescuro.png') }}" alt="imagem de lua" width="25" height="25" class="mt-2">
+                            </div>
+                        </li>
                     </ul>
                 </div>
             </div>

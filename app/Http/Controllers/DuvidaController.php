@@ -18,6 +18,7 @@ class DuvidaController extends Controller
         return view('duvidas.index');
     }
 
+    
     public function create()
     {
         return view('duvidas.create');
