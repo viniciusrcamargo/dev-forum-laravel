@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return redirect('/duvidas');
+    return redirect('/home');
 });
 
 Auth::routes();
@@ -22,3 +22,4 @@ Auth::routes();
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 Route::resource('/duvidas', App\Http\Controllers\DuvidaController::class)->except(['show']);
+Route::resource('/categorias', App\Http\Controllers\CategoriaController::class)->except(['show']);

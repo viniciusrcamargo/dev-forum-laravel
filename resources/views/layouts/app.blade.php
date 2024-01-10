@@ -23,7 +23,12 @@
                     <img src="{{ asset('/build/assets/img/logo.png') }}" alt="Logo" width="35" height="35">
                     {{ config('app.name', 'Laravel') }}
                 </a>
-                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
+                @if(Auth::check())
+                <a class="navbar-brand" href="{{ url('/duvidas/create') }}">
+                    <img src="{{ asset('/build/assets/img/addicon.svg') }}" alt="Icone de adicionar" width="35" height="35">
+                </a>
+                @endif
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
                 </button>
 
