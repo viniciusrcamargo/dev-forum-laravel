@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::table('duvidas', function (Blueprint $table) {
            $table->foreignId('user_id')->constrained('users');
+           $table->foreignId('categoria_id')->constrained('categorias');
         });
     }
 
@@ -23,6 +24,7 @@ return new class extends Migration
     {
         Schema::table('duvidas', function (Blueprint $table) {
             $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
+            $table->foreignId('categoria_id')->constrained('categorias')->onDelete('cascade');
         });
     }
 };

@@ -14,9 +14,11 @@
                     <label for="categoria" class="form-label">Categoria</label>
                     <select class="form-select" aria-label="Large select example">
                     <option selected disabled>Selecione a categoria</option>
-                    <option value="1">Desenvolvimento</option>
-                    <option value="2">Inteligência Artificial</option>
-                    <option value="3">Devops</option>
+                    @if (isset($categorias))
+                    @foreach ($categorias as $categoria)
+                    <option value="1">{{$categoria->nome}}</option>
+                    @endforeach
+                    @endif
                     </select>
                 </div>
             </div>

@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Duvida;
+use App\Models\Categoria;
 
 class DuvidaController extends Controller
 {
@@ -10,6 +12,8 @@ class DuvidaController extends Controller
     public function __construct()
     {
         $this->middleware('auth')->except(['index']);//restringe acesso aos users autenticados exceto a index
+        
+
     }
 
     /**
@@ -17,15 +21,20 @@ class DuvidaController extends Controller
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
-    public function index()
+    public function index(Request $request)
     {
-        return view('duvidas.index');
+        $categorias = Categoria::query()->orderBy('nome')->get();
+        $user = $request->user();
+        dd($categorias);
+        return view('duvidas.index')->with('categorias', $categorias)->with('user', $user);
     }
 
     
-    public function create()
+    public function create(Request $request)
     {
-        return view('duvidas.create');
+        $categorias = Categoria::query()->orderBy('nome')->get();
+        $user = $request->user();
+        return view('duvidas.create')->with('categorias', $categorias)->with('user', $user);
     }
 
     public function store(Request $request)
