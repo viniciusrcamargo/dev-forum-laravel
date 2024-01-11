@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Duvida extends Model
 {
     use HasFactory;
+    protected $fillable = ['titulo', 'descricao', 'categoria_id', 'user_id'];
 
     public function categorias(): HasMany
     {

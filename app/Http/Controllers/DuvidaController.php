@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Duvida;
 use App\Models\Categoria;
+use App\Models\User;
 
 class DuvidaController extends Controller
 {
@@ -12,7 +13,7 @@ class DuvidaController extends Controller
     public function __construct()
     {
         $this->middleware('auth')->except(['index']);//restringe acesso aos users autenticados exceto a index
-        
+
 
     }
 
@@ -29,7 +30,7 @@ class DuvidaController extends Controller
         return view('duvidas.index')->with('categorias', $categorias)->with('user', $user);
     }
 
-    
+
     public function create(Request $request)
     {
         $categorias = Categoria::query()->orderBy('nome')->get();
@@ -39,11 +40,16 @@ class DuvidaController extends Controller
 
     public function store(Request $request)
     {
-        $request->validate([
-            'email' => 'required|email',
-            'duvida' => 'required|min:10'
+        //dd($request->all());
+        // $user = User::find(1);
+        // $categoria = Categoria::find(1);
+        $duvidas = Duvida::create([
+            'titulo' => $request->titulo,
+            'descricao' => $request->descricao,
+            'categoria_id' => $request->categoria_id,
+            'user_id' => $request->user_id
         ]);
 
-        return redirect('/duvidas/create')->with('status', 'Duvida enviada com sucesso!');
+        return redirect('/duvidas');
     }
 }
