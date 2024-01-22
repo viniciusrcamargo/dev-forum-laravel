@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Duvida;
+use Illuminate\Support\Facades\DB;
 
 
 class HomeController extends Controller
@@ -25,7 +26,16 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $duvidas = Duvida::query()->orderBy('created_at')->get();
-        return view('home');
+        // $duvidas = Duvida::query()->orderBy('created_at')->get();
+        //dd($duvidas);
+
+        $duvidas = DB::table('duvidas')
+            ->join('categorias', 'duvidas.categoria_id', '=', 'categorias.id')
+            ->join('users', 'duvidas.user_id', '=', 'users.id')
+            ->select('duvidas.*', 'categorias.nome', 'users.name')
+            ->get();
+
+        //dd($duvidas);
+        return view('home')->with('duvidas', $duvidas);
     }
 }

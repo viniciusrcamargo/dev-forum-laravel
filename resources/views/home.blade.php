@@ -11,15 +11,23 @@
             </div>
         </div>
 
-    <div class="card mt-4" style="width: 18rem;">
-        <div class="card-body">
-            <h5 class="card-title">Card title</h5>
-            <h6 class="card-subtitle mb-2 text-body-secondary">Card subtitle</h6>
-            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-            <a href="#" class="card-link">Card link</a>
-            <a href="#" class="card-link">Another link</a>
-        </div>
-    </div>
+    @isset($duvidas)
+    @foreach ($duvidas as $duvida)
+        <a class="link-offset-2 link-underline link-underline-opacity-0" href="{{ route('duvida.index', $duvida->id) }}"">                              
+            <div class="card mt-4" >
+                <div class="card-body">
+                    <h5 class="card-title">{{$duvida->titulo}}</h5>
+                    <h6 class="card-subtitle mb-2 text-body-secondary">{{ $duvida->name }}</h6>
+                    <p class="card-text">{{$duvida->descricao}}</p>
+                    <span class="badge {!! $duvida->status === 'aberta' ? 'text-bg-success' : 'text-bg-danger' !!}">{{ $duvida->status === 'aberta' ? 'aberta' : 'fechada' }}</span>
+                    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                        <button class="btn btn-outline-info btn-sm me-md-2" type="submit">Conferir dúvida!</button>
+                    </div>
+                </div>
+            </div>
+        </a>
+    @endforeach
+    @endisset
     </div>
 @endsection
 

@@ -24,9 +24,11 @@ class DuvidaController extends Controller
      */
     public function index(Request $request)
     {
+        dd($request->all());
         $categorias = Categoria::query()->orderBy('nome')->get();
         $user = $request->user();
-        dd($categorias);
+        $duvidas = Duvida::find($request->id);
+        //dd($categorias);
         return view('duvidas.index')->with('categorias', $categorias)->with('user', $user);
     }
 
@@ -50,6 +52,6 @@ class DuvidaController extends Controller
             'user_id' => $request->user_id
         ]);
 
-        return redirect('/duvidas');
+        return redirect('/home');
     }
 }
