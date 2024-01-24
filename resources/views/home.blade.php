@@ -13,7 +13,7 @@
 
     @isset($duvidas)
     @foreach ($duvidas as $duvida)
-        <a class="link-offset-2 link-underline link-underline-opacity-0" href="{{ route('duvida.index', $duvida->id) }}"">                              
+        <a class="link-offset-2 link-underline link-underline-opacity-0" href="{{ route('duvidas.show', $duvida->id) }}">                              
             <div class="card mt-4" >
                 <div class="card-body">
                     <h5 class="card-title">{{$duvida->titulo}}</h5>

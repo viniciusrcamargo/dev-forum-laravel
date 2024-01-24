@@ -6,13 +6,14 @@ use Illuminate\Http\Request;
 use App\Models\Duvida;
 use App\Models\Categoria;
 use App\Models\User;
+use Illuminate\Support\Facades\DB;
 
 class DuvidaController extends Controller
 {
 
     public function __construct()
     {
-        $this->middleware('auth')->except(['index']);//restringe acesso aos users autenticados exceto a index
+        $this->middleware('auth')->except(['index','show']);//restringe acesso aos users autenticados exceto a index
 
 
     }
@@ -22,14 +23,10 @@ class DuvidaController extends Controller
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
-    public function index(Request $request)
+    public function index()
     {
-        dd($request->all());
-        $categorias = Categoria::query()->orderBy('nome')->get();
-        $user = $request->user();
-        $duvidas = Duvida::find($request->id);
-        //dd($categorias);
-        return view('duvidas.index')->with('categorias', $categorias)->with('user', $user);
+        // $duvida = Duvida::where('id', $id)->first();
+        // return view('duvidas.index', compact('duvida'));
     }
 
 
@@ -53,5 +50,19 @@ class DuvidaController extends Controller
         ]);
 
         return redirect('/home');
+    }
+
+    public function edit($id)
+    {
+        $duvida = Duvida::where('id', $id)->first();
+        $categorias = Categoria::query()->orderBy('nome')->get();
+        return view('duvidas.edit')->with('duvida', $duvida)->with('categorias', $categorias);
+    }
+
+    public function show($id)
+    {
+        $duvida = Duvida::where('id', $id)->first();
+    
+        return view('duvidas.show', compact('duvida'));
     }
 }

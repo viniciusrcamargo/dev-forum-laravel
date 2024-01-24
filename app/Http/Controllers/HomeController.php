@@ -26,14 +26,15 @@ class HomeController extends Controller
      */
     public function index()
     {
-        // $duvidas = Duvida::query()->orderBy('created_at')->get();
-        //dd($duvidas);
+        $duvidas = Duvida::query()->orderBy('created_at')->get();
+        //dd($request);
 
-        $duvidas = DB::table('duvidas')
-            ->join('categorias', 'duvidas.categoria_id', '=', 'categorias.id')
-            ->join('users', 'duvidas.user_id', '=', 'users.id')
-            ->select('duvidas.*', 'categorias.nome', 'users.name')
-            ->get();
+        //  $duvidas = DB::table('duvidas')
+        //     ->join('categorias', 'duvidas.categoria_id', '=', 'categorias.id')
+        //    ->join('users', 'duvidas.user_id', '=', 'users.id')
+        //      ->select('duvidas.*', 'categorias.nome', 'users.name')
+        //      ->where('duvidas.id', '=', '$request->search')
+        //   ->get();
 
         //dd($duvidas);
         return view('home')->with('duvidas', $duvidas);

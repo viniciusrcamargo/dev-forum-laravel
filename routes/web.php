@@ -21,5 +21,5 @@ Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-Route::resource('/duvidas', App\Http\Controllers\DuvidaController::class)->except(['show']);
+Route::resource('/duvidas', App\Http\Controllers\DuvidaController::class);
 Route::resource('/categorias', App\Http\Controllers\CategoriaController::class)->except(['show']);
