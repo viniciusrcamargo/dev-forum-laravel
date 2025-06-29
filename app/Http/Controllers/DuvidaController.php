@@ -40,8 +40,6 @@ class DuvidaController extends Controller
     public function store(Request $request)
     {
         //dd($request->all());
-        // $user = User::find(1);
-        // $categoria = Categoria::find(1);
         $duvidas = Duvida::create([
             'titulo' => $request->titulo,
             'descricao' => $request->descricao,
@@ -52,17 +50,38 @@ class DuvidaController extends Controller
         return redirect('/home');
     }
 
+    public function update(Request $request)
+    {
+        // dd($request->all());
+         $duvida = Duvida::find($request->id);
+        $duvida->update([
+            'titulo' => $request->titulo,
+            'descricao' => $request->descricao,
+            'categoria_id' => $request->categoria_id,
+        ])->where('id', $request->id);
+
+        return redirect('/home');
+    }
+
     public function edit($id)
     {
-        $duvida = Duvida::where('id', $id)->first();
         $categorias = Categoria::query()->orderBy('nome')->get();
+
+        $duvida = DB::table('duvidas')
+            ->join('users', 'duvidas.user_id', '=', 'users.id')
+            ->join('categorias', 'duvidas.categoria_id', '=', 'categorias.id')
+            ->select('duvidas.*', 'users.name', 'categorias.nome')
+            ->where('duvidas.id', '=', $id)
+            ->first();
+        // dd($duvida);
         return view('duvidas.edit')->with('duvida', $duvida)->with('categorias', $categorias);
     }
 
     public function show($id)
     {
         $duvida = Duvida::where('id', $id)->first();
-    
+        // $categorias = Categoria::query()->orderBy('nome')->get();
+        
         return view('duvidas.show', compact('duvida'));
     }
 }
