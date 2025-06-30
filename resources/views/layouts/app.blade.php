@@ -24,9 +24,21 @@
                     {{ config('app.name', 'Laravel') }}
                 </a>
                 @if(Auth::check())
-                <a class="navbar-brand" href="{{ url('/duvidas/create') }}">
-                    <img src="{{ asset('/build/assets/img/addicon.svg') }}" alt="Icone de adicionar" width="35" height="35">
-                </a>
+                <div class="dropdown">
+                    <!-- Botão/Link que aciona o dropdown -->
+                    <button class="btn btn-light dropdown-toggle d-flex align-items-center" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+                        <span>Cadastros</span>
+                        <!-- O texto do botão pode ser adicionado aqui se desejar, por exemplo: Adicionar -->
+                    </button>
+
+                    <!-- Painel do dropdown -->
+                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                        <!-- Item do menu: Adicionar Categoria -->
+                        <li><a class="dropdown-item" href="{{ url('/categorias/create') }}">Adicionar Categoria</a></li>
+                        <!-- Item do menu: Adicionar Dúvida -->
+                        <li><a class="dropdown-item" href="{{ url('/duvidas/create') }}">Adicionar Dúvida</a></li>
+                    </ul>
+                </div>
                 @endif
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>

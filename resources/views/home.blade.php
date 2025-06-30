@@ -20,9 +20,6 @@
                     <h6 class="card-subtitle mb-2 text-body-secondary">{{ $duvida->name }}</h6>
                     <p class="card-text">{{$duvida->descricao}}</p>
                     <span class="badge {!! $duvida->status === 'aberta' ? 'text-bg-success' : 'text-bg-danger' !!}">{{ $duvida->status === 'aberta' ? 'aberta' : 'fechada' }}</span>
-                    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                        <button class="btn btn-outline-info btn-sm me-md-2" type="submit">Conferir dúvida!</button>
-                    </div>
                 </div>
             </div>
         </a>
