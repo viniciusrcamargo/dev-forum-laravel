@@ -13,7 +13,7 @@
                     @isset($categoria)
                         value="{{ $categoria->nome }}"
                     @endisset
-                    >
+                    required>
                 </div>
             </div>
             <button type="submit" class="btn btn-outline-success btn-lg">Editar</button>
