@@ -1,6 +1,15 @@
 @extends('layouts.app')
 
 @section('content')
+@if ($errors->any())
+    <div class="alert alert-danger">
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+@endif
 <div class="card-body ">
     <form method="POST" action="{{ route('duvidas.store') }}" >
         @csrf
@@ -31,7 +40,6 @@
             </div>
             <input type="hidden" class="form-control " id="idUsuario" placeholder="Minha dúvida" name="user_id" value="{{ Auth::user()->id }}">
             @if($categoria->id)
-            @dd($categoria->id)
             <button type="submit" class="btn btn-outline-success btn-lg">Adicionar</button>
             @endif
         </div>
