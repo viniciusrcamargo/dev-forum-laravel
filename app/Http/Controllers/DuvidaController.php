@@ -34,12 +34,27 @@ class DuvidaController extends Controller
     {
         $categorias = Categoria::query()->orderBy('nome')->get();
         $user = $request->user();
+       
         return view('duvidas.create')->with('categorias', $categorias)->with('user', $user);
     }
 
     public function store(Request $request)
     {
-        //dd($request->all());
+        $validatedData = $request->validate([
+            'titulo' => 'required|string|max:255', // Título é obrigatório e string, máx 255 caracteres
+            'descricao' => 'required|string',    // Descrição é obrigatória e string
+            'categoria_id' => 'required|exists:categorias,id', // <-- AQUI ESTÁ A VALIDAÇÃO PARA A CATEGORIA                                                     // No entanto, é mais seguro pegar o user_id do usuário autenticado (Auth::id())
+        ], [
+            'titulo.required' => 'O campo título é obrigatório.',
+            'titulo.string' => 'O título deve ser um texto.',
+            'titulo.max' => 'O título não pode ter mais de :max caracteres.',
+            'descricao.required' => 'O campo descrição é obrigatório.',
+            'descricao.string' => 'A descrição deve ser um texto.',
+            'categoria_id.required' => 'É necessário selecionar uma categoria.',
+            'categoria_id.exists' => 'A categoria selecionada não é válida. Por favor, escolha uma categoria existente.',
+        ]);
+
+        
         $duvidas = Duvida::create([
             'titulo' => $request->titulo,
             'descricao' => $request->descricao,
