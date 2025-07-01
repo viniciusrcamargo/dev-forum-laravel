@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Duvida;
 use App\Models\Categoria;
+use App\Models\Solucoes;
 use App\Models\User;
 use Illuminate\Support\Facades\DB;
 
@@ -14,8 +15,6 @@ class DuvidaController extends Controller
     public function __construct()
     {
         $this->middleware('auth')->except(['index','show']);//restringe acesso aos users autenticados exceto a index
-
-
     }
 
     /**
@@ -95,8 +94,9 @@ class DuvidaController extends Controller
     public function show($id)
     {
         $duvida = Duvida::where('id', $id)->first();
+        $solucoes = Solucoes::where('duvida_id', $id)->get();
         // $categorias = Categoria::query()->orderBy('nome')->get();
         
-        return view('duvidas.show', compact('duvida'));
+        return view('duvidas.show', compact('duvida'))->with('solucoes', $solucoes);
     }
 }
