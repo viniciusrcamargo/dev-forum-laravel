@@ -15,6 +15,27 @@
 
     <!-- Scripts -->
     @vite(['resources/js/app.js']) <!-- importa o bootstrap -->
+</head>
+
+
+<style>
+    body.dark-mode {
+    background-color: #121212;
+    color: #ffffff;
+}
+
+body.dark-mode .card {
+    background-color: #1e1e1e;
+    border-color: #333;
+}
+
+body.dark-mode .card-title,
+body.dark-mode .card-subtitle,
+body.dark-mode .card-text {
+    color: #ffffff;
+}
+
+</style>
 <body>
     <div id="app">
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
@@ -40,7 +61,7 @@
                     </ul>
                 </div>
                 @endif
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}" id="toggle-theme">
                     <span class="navbar-toggler-icon"></span>
                 </button>
 
@@ -96,4 +117,27 @@
         </main>
     </div>
 </body>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const toggleButton = document.getElementById('toggle-theme');
+        const body = document.body;
+
+        // Verifica se o tema escuro já está salvo no localStorage
+        if (localStorage.getItem('theme') === 'dark') {
+            body.classList.add('dark-mode');
+        }
+
+        toggleButton.addEventListener('click', function () {
+            body.classList.toggle('dark-mode');
+
+            // Salva a preferência no localStorage
+            if (body.classList.contains('dark-mode')) {
+                localStorage.setItem('theme', 'dark');
+            } else {
+                localStorage.setItem('theme', 'light');
+            }
+        });
+    });
+</script>
 </html>

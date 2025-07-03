@@ -19,7 +19,7 @@
                 <div class="col-4">
                     <label for="categoria" class="form-label">Categoria</label>
                     <select class="form-select" aria-label="Large select example" name="categoria_id" required>
-                        <option selected disabled>{{ $duvida->nome }}</option>
+                        <option selected value="{{$duvida->categoria_id}}">{{ $duvida->nome }}</option>
                         @if (isset($categorias))
                         @foreach ($categorias as $categoria)
                         <option value="{{$categoria->id}}" id="categoria_id">{{ $categoria->nome }}</option>

@@ -64,15 +64,16 @@ class DuvidaController extends Controller
         return redirect('/home');
     }
 
-    public function update(Request $request)
+    public function update(Request $request, $id)
     {
-        // dd($request->all());
-         $duvida = Duvida::find($request->id);
+        //dd($request->all());
+        $duvida = Duvida::find($id);
+        //dd($duvida);
         $duvida->update([
             'titulo' => $request->titulo,
-            'descricao' => $request->descricao,
             'categoria_id' => $request->categoria_id,
-        ])->where('id', $request->id);
+            'descricao' => $request->descricao,
+        ]);
 
         return redirect('/home');
     }

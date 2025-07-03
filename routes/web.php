@@ -24,3 +24,4 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 Route::resource('/duvidas', App\Http\Controllers\DuvidaController::class);
 Route::resource('/categorias', App\Http\Controllers\CategoriaController::class)->except(['show']);
 Route::resource('/solucoes', App\Http\Controllers\SolucoesController::class)->except(['show']);
+Route::post('/solucoes/updateStatus/{id}', [App\Http\Controllers\SolucoesController::class, 'updateStatus'])->name('solucoes.updateStatus');

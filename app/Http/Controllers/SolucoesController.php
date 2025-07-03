@@ -66,20 +66,50 @@ class SolucoesController extends Controller
 
     public function update(Request $request)
     {
-        //dd($request->all());
-         $solucao = Solucoes::find($request->id);
+        
+        $solucao = Solucoes::find($request->id);
+
+        if (!$solucao) {
+            return redirect('/home')->with('error', 'Solução não encontrada.');
+        }
+
         $solucao->update([
             'titulo' => $request->titulo,
             'descricao' => $request->descricao,
-        ])->where('id', $request->id);
+        ]);
 
-        return redirect('/home');
+        return redirect("/duvidas/{$solucao->duvida_id}")->with('success', 'Solução atualizada com sucesso!');
+
     }
+
+    public function updateStatus(Request $request)
+    {
+        $solucao = Solucoes::find($request->id);
+
+        if (!$solucao) {
+            return redirect('/home')->with('error', 'Solução não encontrada.');
+        }
+
+        $duvida = Duvida::find($solucao->duvida_id);
+
+        $solucao->update([
+            'status' => $request->status,
+        ]);
+
+        if ($duvida) {
+            $duvida->update([
+                'status' => 'fechada',
+            ]);
+        }
+
+        return redirect("/duvidas/{$solucao->duvida_id}")->with('success', 'Solução atualizada com sucesso!');
+    }
+
 
     public function edit(Solucoes $solucao, $id)
     {   
-
         $solucao = Solucoes::find($id);
+        // dd($solucao);
         if (!$solucao) {
             return redirect()->back()->with('error', 'Solução não encontrada.');
         }

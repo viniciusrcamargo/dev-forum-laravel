@@ -24,19 +24,23 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
-    public function index()
-    {
-        $duvidas = Duvida::query()->orderBy('created_at')->get();
-        //dd($request);
+    
+public function index(Request $request)
+{
+    $query = Duvida::query();
 
-        //  $duvidas = DB::table('duvidas')
-        //     ->join('categorias', 'duvidas.categoria_id', '=', 'categorias.id')
-        //    ->join('users', 'duvidas.user_id', '=', 'users.id')
-        //      ->select('duvidas.*', 'categorias.nome', 'users.name')
-        //      ->where('duvidas.id', '=', '$request->search')
-        //   ->get();
-
-        //dd($duvidas);
-        return view('home')->with('duvidas', $duvidas);
+    if ($request->filled('search')) {
+        $query->where('titulo', 'like', '%' . $request->search . '%');
     }
+
+    $duvidas = $query->orderBy('created_at', 'desc')->get();
+
+    if ($request->ajax()) {
+        return view('partials.duvidas', compact('duvidas'));
+    }
+
+    return view('home', compact('duvidas'));
+}
+
+
 }
