@@ -25,3 +25,28 @@ Antes de começar, certifique-se de ter instalado:
 ```bash
 git clone https://github.com/seu-usuario/seu-projeto.git
 cd seu-projeto
+
+## ⚙️ Configurando o .env
+Copie o arquivo .env.example para .env:
+caso tenha dúvida pesquise na web arquivo web para projeto laravel na versão 10
+
+Gere a chave da aplicação:
+use o comando: 
+php artisan key:generate
+
+Edite o arquivo .env com as configurações do seu banco de dados:
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=nome_do_banco
+DB_USERNAME=seu_usuario
+DB_PASSWORD=sua_senha
+
+##🧱 Instalando dependências
+composer install
+##🗃️ Rodando as migrations
+php artisan migrate
+
+##▶️ Iniciando o servidor
+php artisan serve
+Acesse o projeto em: http://localhost:8000
